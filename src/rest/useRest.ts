@@ -86,11 +86,9 @@ export default function useRest<ResponseData = unknown> (
         message: fetcher.error.value,
       })
 
-      if (
-        fetcher.data.value?.error?.name === 'ValidationError' &&
-        fetcher.data.value?.error?.details?.errors
-      ) {
-        validationErrors.errors.value = fetcher.data.value?.error.details.errors
+      if (fetcher.data.value?.error?.name === 'ValidationError') {
+        fetcher.data.value?.error?.message && (validationErrors.errors.value = fetcher.data.value?.error.message)
+        fetcher.data.value?.error?.details?.errors && (validationErrors.errors.value = fetcher.data.value?.error.details.errors)
       }
     }
   }
